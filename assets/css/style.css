@@ -105,15 +105,25 @@ header h1 a:hover {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
     color: var(--text-color);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
 }
 
 .hamburger-menu:hover {
     background-color: var(--card-bg);
+    transform: scale(1.05);
+}
+
+.hamburger-menu:active {
+    transform: scale(0.95);
 }
 
 /* 기존 모바일 네비게이션 스타일 주석 처리
@@ -653,11 +663,13 @@ html {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 998;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 
 .side-nav-overlay.active {
@@ -668,15 +680,17 @@ html {
 .side-nav {
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 300px;
+    left: -320px;
+    width: 320px;
     height: 100%;
     background-color: var(--bg-color);
     border-right: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-    transition: left 0.3s ease;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .side-nav.active {
@@ -685,24 +699,31 @@ html {
 
 .close-nav {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: 1.5rem;
+    right: 1.5rem;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
+    padding: 12px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
     color: var(--text-color);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .close-nav:hover {
     background-color: var(--card-bg);
+    transform: scale(1.1);
 }
 
 .side-nav-content {
-    padding: 4rem 2rem 2rem;
+    padding: 5rem 2rem 2rem;
+    flex: 1;
 }
 
 .side-nav ul {
@@ -712,7 +733,7 @@ html {
 }
 
 .side-nav li {
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .side-nav a {
@@ -721,12 +742,101 @@ html {
     text-decoration: none;
     font-weight: 500;
     font-size: 1.1rem;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
     transition: all 0.3s ease;
+    border-left: 3px solid transparent;
 }
 
 .side-nav a:hover {
     background-color: var(--card-bg);
     color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    transform: translateX(4px);
+}
+
+/* 네비게이션 드롭다운 (사이드바용) */
+.side-nav .nav-dropdown-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    border-left: 3px solid transparent;
+}
+
+.side-nav .nav-dropdown-toggle:hover {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    transform: translateX(4px);
+}
+
+.side-nav .nav-dropdown-menu {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.side-nav .nav-dropdown-menu li {
+    margin-bottom: 0.25rem;
+}
+
+.side-nav .nav-dropdown-menu a {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    color: var(--secondary-text);
+    border-left: 2px solid transparent;
+}
+
+.side-nav .nav-dropdown-menu a:hover {
+    color: var(--accent-color);
+    background-color: var(--card-bg);
+    border-left-color: var(--accent-color);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .side-nav {
+        width: 280px;
+        left: -280px;
+    }
+    
+    .side-nav-content {
+        padding: 4rem 1.5rem 2rem;
+    }
+    
+    .close-nav {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .side-nav {
+        width: 260px;
+        left: -260px;
+    }
+    
+    .side-nav-content {
+        padding: 4rem 1rem 2rem;
+    }
+    
+    .side-nav a,
+    .side-nav .nav-dropdown-toggle {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+    }
 } 

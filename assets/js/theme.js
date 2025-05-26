@@ -11,6 +11,9 @@ class ThemeManager {
         this.updateTheme();
         this.setupToggleButton();
         this.setupSystemThemeListener();
+        
+        // 디버깅용 콘솔 로그
+        console.log('ThemeManager initialized, current theme:', this.theme);
     }
 
     applyThemeImmediately() {
@@ -21,6 +24,7 @@ class ThemeManager {
         } else {
             html.setAttribute('data-theme', 'light');
         }
+        console.log('Theme applied immediately:', this.theme);
     }
 
     getStoredTheme() {
@@ -36,6 +40,7 @@ class ThemeManager {
         this.theme = theme;
         localStorage.setItem('theme', theme);
         this.updateTheme();
+        console.log('Theme changed to:', theme);
     }
 
     updateTheme() {
@@ -48,6 +53,7 @@ class ThemeManager {
         }
 
         this.updateToggleButton();
+        console.log('Theme updated, data-theme attribute:', html.getAttribute('data-theme'));
     }
 
     updateToggleButton() {
@@ -64,17 +70,28 @@ class ThemeManager {
                 lightIcon.classList.add('hidden');
                 darkIcon.classList.remove('hidden');
             }
+            console.log('Toggle button updated for theme:', this.theme);
+        } else {
+            console.error('Theme toggle icons not found!');
         }
     }
 
     toggleTheme() {
-        this.setTheme(this.theme === 'dark' ? 'light' : 'dark');
+        const newTheme = this.theme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+        console.log('Theme toggled from', this.theme === 'dark' ? 'light' : 'dark', 'to', newTheme);
     }
 
     setupToggleButton() {
         const toggleButton = document.querySelector('.theme-toggle');
         if (toggleButton) {
-            toggleButton.addEventListener('click', () => this.toggleTheme());
+            toggleButton.addEventListener('click', () => {
+                console.log('Toggle button clicked');
+                this.toggleTheme();
+            });
+            console.log('Toggle button event listener attached');
+        } else {
+            console.error('Theme toggle button not found!');
         }
     }
 
@@ -82,7 +99,7 @@ class ThemeManager {
         // Listen for system theme changes only if user hasn't set a manual preference
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!this.getStoredTheme()) {
-                this.theme = e.matches ? 'dark' : 'light';
+                this.theme = 'dark'; // 항상 다크 모드 기본값 유지
                 this.updateTheme();
             }
         });
@@ -99,9 +116,12 @@ class ThemeManager {
     } else {
         document.documentElement.setAttribute('data-theme', 'light');
     }
+    
+    console.log('FOUC prevention script executed, theme:', theme);
 })();
 
 // Initialize theme manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new ThemeManager();
+    console.log('DOM loaded, initializing ThemeManager...');
+    window.themeManager = new ThemeManager();
 }); 

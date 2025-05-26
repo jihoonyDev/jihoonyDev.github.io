@@ -2,4 +2,72 @@
     <div class="container">
         <p>&copy; {{ site.time | date: '%Y' }} {{ site.title }}. 모든 권리 보유.</p>
     </div>
-</footer> 
+</footer>
+
+<script src="/assets/js/theme.js"></script>
+
+<!-- 즉시 실행되는 간단한 테마 토글 버전 -->
+<script>
+// 즉시 실행되는 테마 매니저
+(function() {
+    console.log('Footer script loaded');
+    
+    function initTheme() {
+        const storedTheme = localStorage.getItem('theme');
+        const theme = storedTheme || 'dark';
+        
+        document.documentElement.setAttribute('data-theme', theme);
+        updateToggleButton(theme);
+        console.log('Theme initialized:', theme);
+    }
+    
+    function updateToggleButton(theme) {
+        const lightIcon = document.querySelector('.light-icon');
+        const darkIcon = document.querySelector('.dark-icon');
+        
+        if (lightIcon && darkIcon) {
+            if (theme === 'dark') {
+                lightIcon.classList.remove('hidden');
+                darkIcon.classList.add('hidden');
+            } else {
+                lightIcon.classList.add('hidden');
+                darkIcon.classList.remove('hidden');
+            }
+            console.log('Icons updated for theme:', theme);
+        }
+    }
+    
+    function toggleTheme() {
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
+        localStorage.setItem('theme', newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+        updateToggleButton(newTheme);
+        
+        console.log('Theme toggled to:', newTheme);
+    }
+    
+    function setupToggleButton() {
+        const toggleButton = document.querySelector('.theme-toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', toggleTheme);
+            console.log('Toggle button event attached');
+        } else {
+            console.error('Toggle button not found');
+        }
+    }
+    
+    // DOM이 로드되면 실행
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            setupToggleButton();
+        });
+    } else {
+        // DOM이 이미 로드된 경우 즉시 실행
+        initTheme();
+        setupToggleButton();
+    }
+})();
+</script> 

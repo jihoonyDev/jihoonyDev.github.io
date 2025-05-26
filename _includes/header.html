@@ -1,9 +1,7 @@
 <header>
     <div class="container">
         <button class="hamburger-menu" aria-label="메뉴 열기">
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
-            <span class="hamburger-line"></span>
+            <span class="menu-icon"></span>
         </button>
         <h1><a href="/">{{ site.title }}</a></h1>
         <button class="theme-toggle" aria-label="테마 전환">
@@ -13,27 +11,29 @@
     </div>
     
     <!-- 토글형 네비게이션 메뉴 -->
-    <nav class="mobile-nav" id="mobile-nav">
-        <div class="mobile-nav-content">
-            <ul>
-                <li><a href="/">홈</a></li>
-                
-                <!-- 동적 카테고리 생성 -->
-                {% if site.categories.size > 0 %}
-                <li class="nav-dropdown">
-                    <button class="nav-dropdown-toggle">
-                        <span>포스트</span>
-                        <span class="nav-arrow">›</span>
-                    </button>
-                    <ul class="nav-dropdown-menu">
-                        <li><a href="/posts/">전체 포스트</a></li>
-                        {% for category in site.categories %}
-                        <li><a href="/posts/{{ category[0] | slugify }}/">{{ category[0] }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+    <div class="mobile-nav-wrapper">
+        <nav class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-content">
+                <ul>
+                    <li><a href="/">홈</a></li>
+                    
+                    <!-- 동적 카테고리 생성 -->
+                    {% if site.categories.size > 0 %}
+                    <li class="nav-dropdown">
+                        <button class="nav-dropdown-toggle">
+                            <span>포스트</span>
+                            <span class="nav-arrow">›</span>
+                        </button>
+                        <ul class="nav-dropdown-menu">
+                            <li><a href="/posts/">전체 포스트</a></li>
+                            {% for category in site.categories %}
+                            <li><a href="/posts/{{ category[0] | slugify }}/">{{ category[0] }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
 </header> 

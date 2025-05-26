@@ -1,2 +1,41 @@
 title: My GitHub Pages Blog
-description: A simple blog hosted on GitHub Pages 
+description: A simple blog hosted on GitHub Pages
+
+# Jekyll 설정
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+
+# 포스트 설정
+future: false
+show_drafts: false
+
+# 플러그인
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# 빌드 설정
+safe: false
+incremental: false
+profile: false
+
+# 포스트 처리
+excerpt_separator: <!--more-->
+
+# 컬렉션 및 폴더 설정
+collections_dir: ""
+
+# 빌드에 포함할 파일들
+include:
+  - _posts/**/*
+
+# 제외할 파일들  
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/ 

@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} - {{ site.title }}</title>
     <link rel="stylesheet" href="/assets/css/style.css">
+    <script>
+        // FOUC 방지를 위한 즉시 테마 적용
+        (function() {
+            const storedTheme = localStorage.getItem('theme');
+            const theme = storedTheme || 'dark'; // 기본값을 다크 모드로 설정
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 <body>
 

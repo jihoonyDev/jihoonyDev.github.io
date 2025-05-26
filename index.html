@@ -6,21 +6,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
+    <title>{{ site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
     {% include header.html %}
 
-    <h1>제 블로그에 오신 것을 환영합니다!</h1>
-    <p>이것은 index.html 파일입니다.</p>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>안녕하세요!</h1>
+                <p>개발과 일상을 기록하는 개인 블로그입니다. 새로운 기술과 경험을 공유하며 함께 성장해 나가요.</p>
+            </div>
+        </section>
 
-    <h2>최신 포스트</h2>
-    <ul>
-    {% for post in site.posts %}
-        <li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
-    {% endfor %}
-    </ul>
+        <section class="posts-section">
+            <div class="container">
+                <h2>최신 포스트</h2>
+                <div class="posts-grid">
+                    {% for post in site.posts limit:6 %}
+                    <article class="post-card">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <div class="post-meta">{{ post.date | date: "%Y년 %m월 %d일" }}</div>
+                        {% if post.excerpt %}
+                        <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
 
     {% include footer.html %}
 </body>

@@ -79,6 +79,67 @@ class ThemeManager {
                 this.toggleTheme();
             });
         }
+        
+        // 햄버거 메뉴 설정
+        this.setupHamburgerMenu();
+    }
+    
+    setupHamburgerMenu() {
+        const hamburgerButton = document.querySelector('.hamburger-menu');
+        const mobileNav = document.querySelector('.mobile-nav');
+        
+        if (hamburgerButton && mobileNav) {
+            hamburgerButton.addEventListener('click', () => {
+                hamburgerButton.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+            });
+            
+            // 메뉴 외부 클릭 시 닫기
+            document.addEventListener('click', (e) => {
+                if (!hamburgerButton.contains(e.target) && !mobileNav.contains(e.target)) {
+                    hamburgerButton.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                }
+            });
+            
+            // 메뉴 링크 클릭 시 메뉴 닫기
+            const navLinks = mobileNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerButton.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                });
+            });
+            
+            // 드롭다운 토글 설정
+            this.setupDropdownToggles();
+        }
+    }
+    
+    setupDropdownToggles() {
+        const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+        
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dropdown = toggle.closest('.nav-dropdown');
+                const isActive = dropdown.classList.contains('active');
+                
+                // 다른 모든 드롭다운 닫기
+                document.querySelectorAll('.nav-dropdown').forEach(item => {
+                    if (item !== dropdown) {
+                        item.classList.remove('active');
+                    }
+                });
+                
+                // 현재 드롭다운 토글
+                if (isActive) {
+                    dropdown.classList.remove('active');
+                } else {
+                    dropdown.classList.add('active');
+                }
+            });
+        });
     }
 
     setupSystemThemeListener() {

@@ -82,6 +82,7 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 header h1 {
@@ -96,7 +97,173 @@ header h1 a {
 }
 
 header h1 a:hover {
+    color: var(--text-color);
+}
+
+/* Hamburger menu */
+.hamburger-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    background-color: var(--card-bg);
+}
+
+.hamburger-line {
+    width: 20px;
+    height: 2px;
+    background-color: var(--text-color);
+    transition: all 0.3s ease;
+    border-radius: 1px;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Mobile navigation */
+.mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99;
+}
+
+.mobile-nav.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-content {
+    padding: 1rem 2rem 2rem;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-nav li {
+    margin-bottom: 1rem;
+}
+
+.mobile-nav a {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav a:hover {
+    background-color: var(--card-bg);
     color: var(--accent-color);
+}
+
+/* Navigation dropdown */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-toggle {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+}
+
+.nav-dropdown-toggle:hover {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+}
+
+.nav-arrow {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    font-weight: bold;
+}
+
+.nav-dropdown.active .nav-arrow {
+    transform: rotate(90deg);
+}
+
+.nav-dropdown-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.nav-dropdown.active .nav-dropdown-menu {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.nav-dropdown-menu li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    color: var(--secondary-text);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    border-left: 2px solid transparent;
+}
+
+.nav-dropdown-menu a:hover {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    padding-left: 1.25rem;
 }
 
 .header-right {
@@ -231,6 +398,36 @@ nav a:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 30px rgba(0, 122, 255, 0.4);
     background: color-mix(in srgb, var(--accent-color) 90%, white);
+}
+
+/* Category header */
+.category-header {
+    text-align: center;
+    padding: 4rem 0 2rem;
+}
+
+.category-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.category-header p {
+    font-size: 1.1rem;
+    color: var(--secondary-text);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.no-posts {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--secondary-text);
+}
+
+.no-posts p {
+    font-size: 1.1rem;
 }
 
 /* Posts section */

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script>
+        // FOUC 방지를 위한 즉시 테마 적용
+        (function() {
+            const storedTheme = localStorage.getItem('theme');
+            const theme = storedTheme || 'dark'; // 기본값을 다크 모드로 설정
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+
+    {% include header.html %}
+
+    <main>
+        <div class="container">
+            <div class="category-header">
+                <h1>{{ page.title }}</h1>
+                <p>{{ page.description | default: page.title + " 카테고리의 포스트들입니다." }}</p>
+            </div>
+            
+            <div class="posts-grid">
+                {% assign category_posts = site.categories[page.category] %}
+                {% if category_posts.size > 0 %}
+                    {% for post in category_posts %}
+                    <article class="post-card">
+                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        <div class="post-meta">{{ post.date | date: "%Y년 %m월 %d일" }}</div>
+                        {% if post.excerpt %}
+                        <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                        {% endif %}
+                    </article>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-posts">
+                        <p>이 카테고리에는 아직 포스트가 없습니다.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    {% include footer.html %}
+
+</body>
+</html> 

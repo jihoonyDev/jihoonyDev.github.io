@@ -16,12 +16,15 @@
     <main>
         <section class="hero">
             <div class="container">
-                <h1>안녕하세요!</h1>
-                <p>개발과 일상을 기록하는 개인 블로그입니다. 새로운 기술과 경험을 공유하며 함께 성장해 나가요.</p>
+                <h1>Think. Code. Share.</h1>
+                <p>생각을 코드로, 코드를 세상으로</p>
+                <div class="hero-actions">
+                    <a href="#posts" class="cta-button">최신 포스트 보기</a>
+                </div>
             </div>
         </section>
 
-        <section class="posts-section">
+        <section class="posts-section" id="posts">
             <div class="container">
                 <h2>최신 포스트</h2>
                 <div class="posts-grid">
@@ -40,5 +43,7 @@
     </main>
 
     {% include footer.html %}
+    
+    <script src="/assets/js/theme.js"></script>
 </body>
 </html> 

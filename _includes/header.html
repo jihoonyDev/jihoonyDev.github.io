@@ -1,12 +1,18 @@
 <header>
     <div class="container">
         <h1><a href="/">{{ site.title }}</a></h1>
-        <nav>
-            <ul>
-                <li><a href="/">홈</a></li>
-                <li><a href="/about/">소개</a></li>
-                <!-- 필요한 메뉴 항목을 추가하세요 -->
-            </ul>
-        </nav>
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="/">홈</a></li>
+                    <li><a href="/about/">소개</a></li>
+                    <!-- 필요한 메뉴 항목을 추가하세요 -->
+                </ul>
+            </nav>
+            <button class="theme-toggle" aria-label="테마 전환">
+                <span class="theme-icon light-icon">☀️</span>
+                <span class="theme-icon dark-icon">🌙</span>
+            </button>
+        </div>
     </div>
 </header> 

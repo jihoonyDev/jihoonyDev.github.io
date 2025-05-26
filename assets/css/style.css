@@ -6,7 +6,7 @@
 }
 
 :root {
-    /* Light mode colors */
+    /* Light mode colors (default) */
     --bg-color: #ffffff;
     --text-color: #1a1a1a;
     --secondary-text: #666666;
@@ -18,8 +18,20 @@
 }
 
 /* Dark mode */
+[data-theme="dark"] {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+    --secondary-text: #a1a1a6;
+    --accent-color: #0a84ff;
+    --border-color: #2c2c2e;
+    --card-bg: #1c1c1e;
+    --shadow: 0 2px 16px rgba(255, 255, 255, 0.1);
+    --shadow-hover: 0 4px 24px rgba(255, 255, 255, 0.15);
+}
+
+/* Auto dark mode for users who haven't manually selected a theme */
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not([data-theme]) {
         --bg-color: #000000;
         --text-color: #ffffff;
         --secondary-text: #a1a1a6;
@@ -75,6 +87,12 @@ header h1 a:hover {
     color: var(--accent-color);
 }
 
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
 nav ul {
     list-style: none;
     display: flex;
@@ -95,6 +113,36 @@ nav a:hover {
     background-color: var(--card-bg);
 }
 
+/* Theme toggle button */
+.theme-toggle {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.theme-toggle:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    transition: opacity 0.3s ease;
+}
+
+.theme-icon.hidden {
+    opacity: 0;
+    position: absolute;
+}
+
 /* Main content */
 .container {
     max-width: 1200px;
@@ -104,25 +152,73 @@ nav a:hover {
 
 .hero {
     text-align: center;
-    padding: 4rem 0;
+    padding: 6rem 0;
     background: linear-gradient(135deg, var(--bg-color) 0%, var(--card-bg) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, var(--accent-color)20, transparent 50%);
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
     background: linear-gradient(135deg, var(--text-color) 0%, var(--accent-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
 }
 
 .hero p {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     color: var(--secondary-text);
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 3rem;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+.hero-actions {
+    margin-top: 2rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent-color);
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 122, 255, 0.4);
+    background: color-mix(in srgb, var(--accent-color) 90%, white);
 }
 
 /* Posts section */
@@ -197,7 +293,9 @@ footer p {
     
     header .container {
         padding: 1rem;
-        flex-direction: column;
+    }
+    
+    .header-right {
         gap: 1rem;
     }
     
@@ -206,14 +304,21 @@ footer p {
     }
     
     .hero {
-        padding: 2rem 0;
+        padding: 4rem 0;
     }
     
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
     }
     
     .hero p {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .cta-button {
+        padding: 0.875rem 1.5rem;
         font-size: 1rem;
     }
     

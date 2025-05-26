@@ -105,18 +105,18 @@ header h1 a:hover {
     background: none;
     border: none;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
     padding: 8px;
     border-radius: 6px;
     transition: background-color 0.3s ease;
+    color: var(--text-color);
+    font-size: 1.2rem;
 }
 
 .hamburger-menu:hover {
     background-color: var(--card-bg);
 }
 
+/* 기존 모바일 네비게이션 스타일 주석 처리
 .hamburger-line {
     width: 20px;
     height: 2px;
@@ -137,7 +137,6 @@ header h1 a:hover {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* Mobile navigation */
 .mobile-nav {
     position: absolute;
     top: 100%;
@@ -188,6 +187,7 @@ header h1 a:hover {
     background-color: var(--card-bg);
     color: var(--accent-color);
 }
+*/
 
 /* Navigation dropdown */
 .nav-dropdown {
@@ -644,4 +644,89 @@ html {
 .post-content pre code {
     background: none;
     padding: 0;
+}
+
+/* 좌측 슬라이드 네비게이션 */
+.side-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 998;
+}
+
+.side-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background-color: var(--bg-color);
+    border-right: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transition: left 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.side-nav.active {
+    left: 0;
+}
+
+.close-nav {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    color: var(--text-color);
+    font-size: 1.2rem;
+}
+
+.close-nav:hover {
+    background-color: var(--card-bg);
+}
+
+.side-nav-content {
+    padding: 4rem 2rem 2rem;
+}
+
+.side-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.side-nav li {
+    margin-bottom: 1rem;
+}
+
+.side-nav a {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.side-nav a:hover {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
 } 

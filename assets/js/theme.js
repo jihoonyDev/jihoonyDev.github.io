@@ -86,28 +86,42 @@ class ThemeManager {
     
     setupHamburgerMenu() {
         const hamburgerButton = document.querySelector('.hamburger-menu');
-        const mobileNav = document.querySelector('.mobile-nav');
+        const sideNav = document.querySelector('.side-nav');
+        const sideNavOverlay = document.querySelector('.side-nav-overlay');
+        const closeNavButton = document.querySelector('.close-nav');
         
-        if (hamburgerButton && mobileNav) {
+        if (hamburgerButton && sideNav && sideNavOverlay) {
+            // 햄버거 버튼 클릭 시 사이드 네비게이션 열기
             hamburgerButton.addEventListener('click', () => {
-                hamburgerButton.classList.toggle('active');
-                mobileNav.classList.toggle('active');
+                sideNav.classList.add('active');
+                sideNavOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // 스크롤 방지
             });
             
-            // 메뉴 외부 클릭 시 닫기
-            document.addEventListener('click', (e) => {
-                if (!hamburgerButton.contains(e.target) && !mobileNav.contains(e.target)) {
-                    hamburgerButton.classList.remove('active');
-                    mobileNav.classList.remove('active');
+            // 닫기 버튼 클릭 시 사이드 네비게이션 닫기
+            if (closeNavButton) {
+                closeNavButton.addEventListener('click', () => {
+                    this.closeSideNav();
+                });
+            }
+            
+            // 오버레이 클릭 시 사이드 네비게이션 닫기
+            sideNavOverlay.addEventListener('click', () => {
+                this.closeSideNav();
+            });
+            
+            // ESC 키로 네비게이션 닫기
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && sideNav.classList.contains('active')) {
+                    this.closeSideNav();
                 }
             });
             
             // 메뉴 링크 클릭 시 메뉴 닫기
-            const navLinks = mobileNav.querySelectorAll('a');
+            const navLinks = sideNav.querySelectorAll('a');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    hamburgerButton.classList.remove('active');
-                    mobileNav.classList.remove('active');
+                    this.closeSideNav();
                 });
             });
             
@@ -116,6 +130,17 @@ class ThemeManager {
         }
     }
     
+    closeSideNav() {
+        const sideNav = document.querySelector('.side-nav');
+        const sideNavOverlay = document.querySelector('.side-nav-overlay');
+        
+        if (sideNav && sideNavOverlay) {
+            sideNav.classList.remove('active');
+            sideNavOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // 스크롤 복원
+        }
+    }
+
     setupDropdownToggles() {
         const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
         

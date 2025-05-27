@@ -9,33 +9,83 @@
             <span class="theme-icon dark-icon">🌙</span>
         </button>
     </div>
-    
-    <!-- 좌측 슬라이드 네비게이션 메뉴 -->
-    <div class="side-nav-overlay"></div>
-    <nav class="side-nav" id="side-nav">
-        <button class="close-nav" aria-label="메뉴 닫기">
-            <i class="fas fa-times"></i>
-        </button>
-        <div class="side-nav-content">
-            <ul>
-                <li><a href="/">홈</a></li>
-                
-                <!-- 동적 카테고리 생성 -->
-                {% if site.categories.size > 0 %}
-                <li class="nav-dropdown">
-                    <button class="nav-dropdown-toggle">
-                        <span>포스트</span>
-                        <span class="nav-arrow">›</span>
-                    </button>
-                    <ul class="nav-dropdown-menu">
-                        <li><a href="/posts/">전체 포스트</a></li>
-                        {% for category in site.categories %}
-                        <li><a href="/posts/{{ category[0] | slugify }}/">{{ category[0] }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
 </header> 
+
+<div class="side-nav-overlay"></div>
+<nav class="side-nav" id="side-nav">
+    <button class="close-nav" aria-label="메뉴 닫기">
+        <i class="fas fa-times"></i>
+    </button>
+    <div class="side-nav-content">
+        <ul>
+            <li><a href="/">홈</a></li>
+            
+            {% if site.categories.size > 0 %}
+            <li class="nav-dropdown">
+                <button class="nav-dropdown-toggle">
+                    <span>포스트</span>
+                    <span class="nav-arrow">›</span>
+                </button>
+                <ul class="nav-dropdown-menu">
+                    <li><a href="/posts/">전체 포스트</a></li>
+                    
+                    {% assign parent_categories = '' | split: '' %}
+                    {% for category in site.categories %}
+                        {% assign category_name = category[0] %}
+                        {% if category_name contains ',' %}
+                            {% assign cat_parts = category_name | split: ',' %}
+                            {% assign parent = cat_parts | first | strip %}
+                            {% unless parent_categories contains parent %}
+                                {% assign parent_categories = parent_categories | push: parent %}
+                            {% endunless %}
+                        {% elsif category_name contains ' ' %}
+                            {% assign cat_parts = category_name | split: ' ' %}
+                            {% if cat_parts.size > 1 %}
+                                {% assign parent = cat_parts | first %}
+                                {% unless parent_categories contains parent %}
+                                    {% assign parent_categories = parent_categories | push: parent %}
+                                {% endunless %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% for parent in parent_categories %}
+                        <li class="nav-dropdown nested">
+                            <button class="nav-dropdown-toggle">
+                                <span>{{ parent }}</span>
+                                <span class="nav-arrow">›</span>
+                            </button>
+                            <ul class="nav-dropdown-menu nested-menu">
+                                {% for category in site.categories %}
+                                    {% assign category_name = category[0] %}
+                                    {% if category_name contains ',' %}
+                                        {% assign cat_parts = category_name | split: ',' %}
+                                        {% assign cat_parent = cat_parts | first | strip %}
+                                        {% assign sub_category = cat_parts | last | strip %}
+                                        {% if cat_parent == parent %}
+                                            <li><a href="/posts/{{ category_name | slugify }}/">{{ sub_category }}</a></li>
+                                        {% endif %}
+                                    {% elsif category_name contains ' ' %}
+                                        {% assign cat_parts = category_name | split: ' ' %}
+                                        {% if cat_parts.size > 1 and cat_parts.first == parent %}
+                                            {% assign sub_category = cat_parts | last %}
+                                            <li><a href="/posts/{{ category_name | slugify }}/">{{ sub_category }}</a></li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                    
+                    {% for category in site.categories %}
+                        {% assign category_name = category[0] %}
+                        {% unless category_name contains ',' or category_name contains ' ' %}
+                            <li><a href="/posts/{{ category_name | slugify }}/">{{ category_name }}</a></li>
+                        {% endunless %}
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

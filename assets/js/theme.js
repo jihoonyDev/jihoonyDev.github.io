@@ -149,21 +149,51 @@ class ThemeManager {
                 e.preventDefault();
                 const dropdown = toggle.closest('.nav-dropdown');
                 const isActive = dropdown.classList.contains('active');
+                const isNested = dropdown.classList.contains('nested');
                 
-                // 다른 모든 드롭다운 닫기
-                document.querySelectorAll('.nav-dropdown').forEach(item => {
-                    if (item !== dropdown) {
-                        item.classList.remove('active');
+                // 중첩 드롭다운이 아닌 경우에만 다른 드롭다운들 닫기
+                if (!isNested) {
+                    document.querySelectorAll('.nav-dropdown:not(.nested)').forEach(item => {
+                        if (item !== dropdown) {
+                            item.classList.remove('active');
+                            // 해당 드롭다운의 중첩 드롭다운들도 닫기
+                            item.querySelectorAll('.nav-dropdown.nested').forEach(nestedItem => {
+                                nestedItem.classList.remove('active');
+                            });
+                        }
+                    });
+                } else {
+                    // 중첩 드롭다운인 경우 같은 레벨의 다른 중첩 드롭다운들만 닫기
+                    const parentDropdown = dropdown.closest('.nav-dropdown-menu');
+                    if (parentDropdown) {
+                        parentDropdown.querySelectorAll('.nav-dropdown.nested').forEach(item => {
+                            if (item !== dropdown) {
+                                item.classList.remove('active');
+                            }
+                        });
                     }
-                });
+                }
                 
                 // 현재 드롭다운 토글
                 if (isActive) {
                     dropdown.classList.remove('active');
+                    // 하위 중첩 드롭다운들도 닫기
+                    dropdown.querySelectorAll('.nav-dropdown.nested').forEach(nestedItem => {
+                        nestedItem.classList.remove('active');
+                    });
                 } else {
                     dropdown.classList.add('active');
                 }
             });
+        });
+        
+        // 문서 클릭 시 모든 드롭다운 닫기
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
         });
     }
 

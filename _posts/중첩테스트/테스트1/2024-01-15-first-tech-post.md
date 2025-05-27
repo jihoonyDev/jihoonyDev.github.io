@@ -2,7 +2,7 @@
 layout: post
 title: "첫 번째 기술 포스트"
 date: 2024-01-15
-categories: [기술]
+categories: "중첩테스트 테스트1"
 excerpt: "기술 관련 첫 번째 포스트입니다."
 ---
 

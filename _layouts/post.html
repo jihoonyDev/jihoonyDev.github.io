@@ -3,38 +3,47 @@ layout: default
 ---
 
 <div class="container">
-    <article class="post-content">
-        <h1>{{ page.title }}</h1>
-        <div class="post-meta">
-            게시일: {{ page.date | date: "%Y년 %m월 %d일" }}
-            {% if page.author %} • {{ page.author }}{% endif %}
-            {% if page.categories.size > 0 %}
-                • 카테고리: 
-                {% for category_slug in page.categories %}
-                    {% assign category_page = site.pages | where: "category_slug", category_slug | first %}
-                    <a href="{{ category_page.url | relative_url }}">{{ category_page.title | remove: "카테고리: " }}</a>{% unless forloop.last %}, {% endunless %}
-                {% endfor %}
+    <div class="post-layout">
+        <article class="post-content">
+            <h1>{{ page.title }}</h1>
+            <div class="post-meta">
+                게시일: {{ page.date | date: "%Y년 %m월 %d일" }}
+                {% if page.author %} • {{ page.author }}{% endif %}
+                {% if page.categories.size > 0 %}
+                    • 카테고리: 
+                    {% for category_slug in page.categories %}
+                        {% assign category_page = site.pages | where: "category_slug", category_slug | first %}
+                        <a href="{{ category_page.url | relative_url }}">{{ category_page.title | remove: "카테고리: " }}</a>{% unless forloop.last %}, {% endunless %}
+                    {% endfor %}
+                {% endif %}
+                {% if page.tags.size > 0 %}
+                    • 태그: {{ page.tags | join: ", " }}
+                {% endif %}
+            </div>
+            
+            {{ content }}
+            
+            {% if page.date %}
+            <div class="other-posts-navigation">
+                {% if page.previous.url %}
+                    <a href="{{ page.previous.url | relative_url }}" class="prev-post">
+                        ← {{ page.previous.title }}
+                    </a>
+                {% endif %}
+                {% if page.next.url %}
+                    <a href="{{ page.next.url | relative_url }}" class="next-post">
+                        {{ page.next.title }} →
+                    </a>
+                {% endif %}
+            </div>
             {% endif %}
-            {% if page.tags.size > 0 %}
-                • 태그: {{ page.tags | join: ", " }}
-            {% endif %}
-        </div>
+        </article>
         
-        {{ content }}
-        
-        {% if page.date %}
-        <div class="other-posts-navigation">
-            {% if page.previous.url %}
-                <a href="{{ page.previous.url | relative_url }}" class="prev-post">
-                    ← {{ page.previous.title }}
-                </a>
-            {% endif %}
-            {% if page.next.url %}
-                <a href="{{ page.next.url | relative_url }}" class="next-post">
-                    {{ page.next.title }} →
-                </a>
-            {% endif %}
-        </div>
-        {% endif %}
-    </article>
+        <aside class="toc-sidebar">
+            <div class="toc-container">
+                <h3>목차</h3>
+                <nav id="toc" class="toc-nav"></nav>
+            </div>
+        </aside>
+    </div>
 </div> 

@@ -219,4 +219,122 @@ class ThemeManager {
 // Initialize theme manager when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.themeManager = new ThemeManager();
-}); 
+    
+    // TOC 초기화
+    if (document.querySelector('.post-content')) {
+        window.tocManager = new TOCManager();
+    }
+});
+
+// TOC (Table of Contents) 관리 클래스
+class TOCManager {
+    constructor() {
+        this.tocContainer = document.getElementById('toc');
+        this.contentContainer = document.querySelector('.post-content');
+        this.headings = [];
+        this.init();
+    }
+
+    init() {
+        if (!this.tocContainer || !this.contentContainer) return;
+        
+        this.generateTOC();
+        this.setupScrollSpy();
+        this.setupSmoothScroll();
+    }
+
+    generateTOC() {
+        const headings = this.contentContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        
+        if (headings.length === 0) {
+            this.tocContainer.closest('.toc-sidebar').style.display = 'none';
+            return;
+        }
+
+        const tocList = document.createElement('ul');
+        
+        headings.forEach((heading, index) => {
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const level = parseInt(heading.tagName.charAt(1));
+            const text = heading.textContent.trim();
+            
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            
+            link.href = `#${id}`;
+            link.textContent = text;
+            link.className = `toc-h${level}`;
+            link.setAttribute('data-heading-id', id);
+            
+            listItem.appendChild(link);
+            tocList.appendChild(listItem);
+            
+            this.headings.push({
+                element: heading,
+                link: link,
+                id: id,
+                level: level
+            });
+        });
+        
+        this.tocContainer.appendChild(tocList);
+    }
+
+    setupScrollSpy() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const headingId = entry.target.id;
+                const tocLink = this.tocContainer.querySelector(`a[data-heading-id="${headingId}"]`);
+                
+                if (entry.isIntersecting) {
+                    this.setActiveLink(tocLink);
+                }
+            });
+        }, observerOptions);
+
+        this.headings.forEach(heading => {
+            observer.observe(heading.element);
+        });
+    }
+
+    setActiveLink(activeLink) {
+        this.tocContainer.querySelectorAll('a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+    }
+
+    setupSmoothScroll() {
+        this.tocContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                
+                const targetId = e.target.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const headerHeight = document.querySelector('header')?.offsetHeight || 0;
+                    const offset = headerHeight + 20;
+                    
+                    const targetPosition = targetElement.offsetTop - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    }
+} 

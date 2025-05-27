@@ -10,14 +10,25 @@ layout: default
                 게시일: {{ page.date | date: "%Y년 %m월 %d일" }}
                 {% if page.author %} • {{ page.author }}{% endif %}
                 {% if page.categories.size > 0 %}
-                    • 카테고리: 
-                    {% for category_slug in page.categories %}
-                        {% assign category_page = site.pages | where: "category_slug", category_slug | first %}
-                        <a href="{{ category_page.url | relative_url }}">{{ category_page.title | remove: "카테고리: " }}</a>{% unless forloop.last %}, {% endunless %}
-                    {% endfor %}
+                    <div style="display: inline-flex; align-items: center;">
+                        • 카테고리: 
+                        <div class="categories-container">
+                            {% for category_slug in page.categories %}
+                                {% assign category_page = site.pages | where: "category_slug", category_slug | first %}
+                                <a href="{{ category_page.url | relative_url }}" class="category">{{ category_page.title | remove: "카테고리: " }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% endif %}
                 {% if page.tags.size > 0 %}
-                    • 태그: {{ page.tags | join: ", " }}
+                    <div style="display: inline-flex; align-items: center;">
+                        • 태그: 
+                        <div class="tags-container">
+                            {% for tag in page.tags %}
+                                <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% endif %}
             </div>
             

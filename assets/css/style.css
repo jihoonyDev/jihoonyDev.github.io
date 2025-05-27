@@ -642,6 +642,35 @@ html {
     color: white;
 }
 
+/* Tag and Category styles */
+.tag, .category {
+    display: inline-block;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    margin: 0 0.25rem 0.25rem 0;
+}
+
+.tag:hover, .category:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+}
+
+.tags-container, .categories-container {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem;
+}
+
 /* Post content styles */
 .post-content {
     padding: 2rem;

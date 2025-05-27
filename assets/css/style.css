@@ -917,4 +917,53 @@ html {
         padding: 0.875rem 1rem;
         font-size: 1rem;
     }
+}
+
+.other-posts-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.other-posts-navigation a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex-basis: 48%;
+}
+
+.other-posts-navigation a:hover {
+    background-color: var(--card-bg);
+    color: var(--accent-color);
+}
+
+.prev-post {
+    text-align: left;
+}
+
+.next-post {
+    text-align: right;
+}
+
+/* 모바일 화면에서 other-posts-navigation 스타일 조정 */
+@media (max-width: 768px) {
+    .other-posts-navigation {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .other-posts-navigation a {
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+
+    .other-posts-navigation a:last-child {
+        margin-bottom: 0;
+    }
+
+    /* .prev-post, .next-post 모바일 정렬은 이미 중앙으로 되어있음 */
 } 

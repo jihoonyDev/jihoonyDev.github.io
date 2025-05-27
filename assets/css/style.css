@@ -484,6 +484,31 @@ nav a:hover {
     color: var(--accent-color);
 }
 
+/* Post card link styles */
+.posts-grid > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.posts-grid > a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.post-card h3 {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-card p {
+    color: var(--secondary-text);
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
 .post-meta {
     color: var(--secondary-text);
     font-size: 0.875rem;

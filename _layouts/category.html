@@ -5,25 +5,27 @@ layout: default
 <div class="container">
     <div class="category-header">
         <h1>{{ page.title }}</h1>
-        <p>{{ page.description | default: page.title + " 카테고리의 포스트들입니다." }}</p>
+        <p>{{ page.description }}</p>
     </div>
     
     <div class="posts-grid">
         {% assign category_posts = site.categories[page.category] %}
         {% if category_posts.size > 0 %}
             {% for post in category_posts %}
-            <article class="post-card">
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                <div class="post-meta">
-                    {{ post.date | date: "%Y년 %m월 %d일" }}
-                    {% if post.categories.size > 0 %}
-                        • 카테고리: {{ post.categories | join: ", " }}
+            <a href="{{ post.url | relative_url }}" class="post-card-link" style="display: block; text-decoration: none; color: inherit;">
+                <article class="post-card">
+                    <h3 class="post-title">{{ post.title }}</h3>
+                    <div class="post-meta">
+                        {{ post.date | date: "%Y년 %m월 %d일" }}
+                        {% if post.categories.size > 0 %}
+                            • 카테고리: {{ post.categories | join: ", " }}
+                        {% endif %}
+                    </div>
+                    {% if post.excerpt %}
+                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
                     {% endif %}
-                </div>
-                {% if post.excerpt %}
-                <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-                {% endif %}
-            </article>
+                </article>
+            </a>
             {% endfor %}
         {% else %}
             <div class="no-posts">

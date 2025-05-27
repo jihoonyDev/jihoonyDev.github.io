@@ -752,8 +752,8 @@ html {
 .side-nav {
     position: fixed;
     top: 0;
-    left: -320px;
-    width: 320px;
+    left: -360px;
+    width: 360px;
     height: 100%;
     background-color: var(--bg-color);
     border-right: 1px solid var(--border-color);
@@ -808,6 +808,12 @@ html {
     margin-bottom: 0.25rem;
 }
 
+.side-nav li.nav-separator {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 0.75rem 1.5rem; /* 위아래 여백, 좌우는 다른 항목과 동일하게 */
+}
+
 .side-nav a {
     display: block;
     color: var(--text-color);
@@ -824,7 +830,6 @@ html {
     background-color: var(--card-bg);
     color: var(--accent-color);
     border-left-color: var(--accent-color);
-    transform: translateX(4px);
 }
 
 /* 네비게이션 드롭다운 (사이드바용) */
@@ -841,8 +846,9 @@ html {
     transition: all 0.3s ease;
     cursor: pointer;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     text-align: left;
     border-left: 3px solid transparent;
 }
@@ -851,7 +857,6 @@ html {
     background-color: var(--card-bg);
     color: var(--accent-color);
     border-left-color: var(--accent-color);
-    transform: translateX(4px);
 }
 
 .side-nav .nav-dropdown-menu {
@@ -866,7 +871,7 @@ html {
 
 .side-nav .nav-dropdown-menu a {
     font-size: 1rem;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0.8rem;
     color: var(--secondary-text);
     border-left: 2px solid transparent;
 }
@@ -880,8 +885,8 @@ html {
 /* 모바일 반응형 */
 @media (max-width: 768px) {
     .side-nav {
-        width: 280px;
-        left: -280px;
+        width: 320px;
+        left: -320px;
     }
     
     .side-nav-content {
@@ -899,8 +904,8 @@ html {
 
 @media (max-width: 480px) {
     .side-nav {
-        width: 260px;
-        left: -260px;
+        width: 300px;
+        left: -300px;
     }
     
     .side-nav-content {

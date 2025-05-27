@@ -48,6 +48,7 @@ paginate_path: "/page/:num/"
 include:
   - _pages
   - _posts
+  - categories
 
 # 제외할 파일들  
 exclude:

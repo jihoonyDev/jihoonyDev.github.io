@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} - {{ site.title }}</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <script>
-        // FOUC 방지를 위한 즉시 테마 적용
-        (function() {
-            const storedTheme = localStorage.getItem('theme');
-            const theme = storedTheme || 'dark'; // 기본값을 다크 모드로 설정
-            document.documentElement.setAttribute('data-theme', theme);
-        })();
-    </script>
-</head>
-<body>
+---
+layout: default
+---
 
-    {% include header.html %}
-
-    <main>
-        <div class="container">
-            <article class="post-content">
-                <h1>{{ page.title }}</h1>
-                <div class="post-meta">게시일: {{ page.date | date: "%Y년 %m월 %d일" }}</div>
-                
-                {{ content }}
-            </article>
+<div class="container">
+    <article class="post-content">
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+            게시일: {{ page.date | date: "%Y년 %m월 %d일" }}
+            {% if page.categories.size > 0 %}
+                • 카테고리: {{ page.categories | join: ", " }}
+            {% endif %}
+            {% if page.tags.size > 0 %}
+                • 태그: {{ page.tags | join: ", " }}
+            {% endif %}
         </div>
-    </main>
-
-    {% include footer.html %}
-
-</body>
-</html> 
+        
+        {{ content }}
+        
+        {% if page.date %}
+        <div class="post-navigation">
+            {% if page.previous.url %}
+                <a href="{{ page.previous.url | relative_url }}" class="prev-post">
+                    ← {{ page.previous.title }}
+                </a>
+            {% endif %}
+            {% if page.next.url %}
+                <a href="{{ page.next.url | relative_url }}" class="next-post">
+                    {{ page.next.title }} →
+                </a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </article>
+</div> 

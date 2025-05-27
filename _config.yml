@@ -1,10 +1,20 @@
 title: My GitHub Pages Blog
 description: A simple blog hosted on GitHub Pages
+url: ""
+baseurl: ""
 
 # Jekyll 설정
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:year/:month/:day/:title/
+
+# kramdown 설정
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: html
+    block:
+      line_numbers: false
 
 # 포스트 설정
 future: false
@@ -15,10 +25,14 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
+# GitHub Pages 호환성
+repository: "username/repository-name"
+
 # 빌드 설정
 safe: false
 incremental: false
 profile: false
+strict_front_matter: false
 
 # 포스트 처리
 excerpt_separator: <!--more-->
@@ -26,9 +40,14 @@ excerpt_separator: <!--more-->
 # 컬렉션 및 폴더 설정
 collections_dir: ""
 
+# 페이지네이션
+paginate: 10
+paginate_path: "/page/:num/"
+
 # 빌드에 포함할 파일들
 include:
-  - _posts/**/*
+  - _pages
+  - _posts
 
 # 제외할 파일들  
 exclude:
@@ -38,4 +57,22 @@ exclude:
   - vendor/bundle/
   - vendor/cache/
   - vendor/gems/
-  - vendor/ruby/ 
+  - vendor/ruby/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - README.md
+  - LICENSE
+  - "*.gemspec"
+
+# SEO 설정
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default" 

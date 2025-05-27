@@ -1,1 +1,18 @@
 .cursor
+
+# Jekyll 빌드 결과물
+_site/
+
+# Jekyll 캐시 및 임시 파일
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# 번들러 관련
+vendor/
+
+# macOS 관련
+.DS_Store
+
+# 로그 파일
+*.log

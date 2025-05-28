@@ -2,12 +2,9 @@
 layout: post
 title: "LLM의 양자화(Quantization)란?"
 date: 2025-05-27
-categories: ["포스팅 테스트"]
-excerpt: "테스트용 입니다."
+categories: ["AI"]
+excerpt: "LLM의 양자화에 대한 개요를 설명합니다."
 ---
-
-# LLM의 양자화(Quantization)란?
-
 양자화는 대규모 언어 모델(LLM)의 크기를 줄이고 실행 속도를 향상시키는 중요한 기술입니다. 이 글에서는 양자화의 개념과 주요 방법들을 살펴보겠습니다.
 
 ## 양자화의 정의

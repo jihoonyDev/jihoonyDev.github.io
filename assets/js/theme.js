@@ -244,6 +244,7 @@ class TOCManager {
         this.generateTOC();
         this.setupScrollSpy();
         this.setupSmoothScroll();
+        this.setupTocScrollEvent();
     }
 
     generateTOC() {
@@ -342,5 +343,51 @@ class TOCManager {
                 }
             }
         });
+    }
+
+    setupTocScrollEvent() {
+        const tocContainer = document.querySelector('.toc-container');
+        
+        if (!tocContainer) return;
+        
+        // TOC 컨테이너에서 휠 이벤트 처리
+        tocContainer.addEventListener('wheel', (e) => {
+            const delta = e.deltaY;
+            const scrollTop = tocContainer.scrollTop;
+            const scrollHeight = tocContainer.scrollHeight;
+            const clientHeight = tocContainer.clientHeight;
+            
+            // TOC 내부에 스크롤할 공간이 있는지 확인
+            if (scrollHeight > clientHeight) {
+                // 스크롤이 맨 위나 맨 아래에 도달했을 때만 페이지 스크롤 허용
+                if ((delta < 0 && scrollTop > 0) || (delta > 0 && scrollTop < scrollHeight - clientHeight)) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    tocContainer.scrollTop += delta;
+                }
+            }
+        }, { passive: false });
+        
+        // 터치 이벤트도 처리 (모바일 대응)
+        let touchStartY = 0;
+        
+        tocContainer.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        tocContainer.addEventListener('touchmove', (e) => {
+            const scrollTop = tocContainer.scrollTop;
+            const scrollHeight = tocContainer.scrollHeight;
+            const clientHeight = tocContainer.clientHeight;
+            
+            if (scrollHeight > clientHeight) {
+                const touchY = e.touches[0].clientY;
+                const deltaY = touchStartY - touchY;
+                
+                if ((deltaY < 0 && scrollTop > 0) || (deltaY > 0 && scrollTop < scrollHeight - clientHeight)) {
+                    e.stopPropagation();
+                }
+            }
+        }, { passive: false });
     }
 } 

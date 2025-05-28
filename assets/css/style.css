@@ -1041,13 +1041,22 @@ html {
     padding: 1rem;
     box-shadow: var(--shadow);
     max-width: 100%;
-    overflow: visible;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    /* 스크롤바 숨김 - Webkit 브라우저 (Chrome, Safari, Edge) */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.toc-container::-webkit-scrollbar {
+    display: none; /* Webkit 브라우저 스크롤바 숨김 */
 }
 
 .toc-nav {
-    overflow: visible !important;
-    height: auto !important;
-    max-height: none !important;
+    height: auto;
+    max-height: none;
 }
 
 .toc-nav ul {

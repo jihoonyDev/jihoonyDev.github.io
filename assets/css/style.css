@@ -629,6 +629,22 @@ footer p {
     .post-card {
         padding: 1.5rem;
     }
+    
+    /* 모바일에서 포스트 콘텐츠 가로 폭 제한 */
+    .post-content {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+    
+    .container > .post-content {
+        margin: 2rem auto;
+        max-width: 100%;
+    }
+    
+    .post-layout .post-content {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
 }
 
 /* Smooth scrolling */

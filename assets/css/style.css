@@ -64,7 +64,7 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    font-size: 16px;
+    font-size: 12px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -682,7 +682,7 @@ html {
 
 /* 일반 페이지의 post-content 스타일 */
 .container > .post-content {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 4rem auto;
 }
 
@@ -704,6 +704,7 @@ html {
 .post-content p {
     margin-bottom: 1.5rem;
     line-height: 1.7;
+    font-size: 0.85rem;
 }
 
 .post-content h2,
@@ -749,7 +750,7 @@ html {
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
     font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
-    font-size: 0.875rem;
+    font-size: 0.7rem;
 }
 
 .post-content pre {
@@ -1009,25 +1010,19 @@ html {
 .post-layout {
     display: flex;
     flex-wrap: wrap;
-}
-
-.ad-sidebar-left {
-    width: 180px;
-    margin-right: 20px;
-    order: 1;
-    display: none;
+    margin-top: 40px; /* TOC와 동일한 상단 간격 적용 */
 }
 
 .post-content {
     flex: 1;
     min-width: 0;
-    order: 2;
+    order: 1;
 }
 
 .toc-sidebar {
     width: 250px;
     margin-left: 20px;
-    order: 3;
+    order: 2;
     display: none;
 }
 
@@ -1123,22 +1118,20 @@ html {
     font-size: 0.6rem;
 }
 
-.ad-bottom-mobile {
+.ad-bottom {
     width: 100%;
-    order: 4;
+    order: 3;
     display: block;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
 }
 
 /* PC (태블릿 이상) 화면 스타일 */
 @media (min-width: 768px) {
-    .ad-sidebar-left {
-        display: block;
-    }
     .toc-sidebar {
         display: block;
-    }
-    .ad-bottom-mobile {
-        display: none;
     }
 }
 
@@ -1154,7 +1147,7 @@ html {
     .post-layout {
         flex-direction: column;
     }
-    .ad-sidebar-left, .toc-sidebar {
+    .toc-sidebar {
         display: none;
         width: 100%;
         margin-left: 0;
@@ -1164,7 +1157,7 @@ html {
     .post-content {
         order: 1;
     }
-    .ad-bottom-mobile {
+    .ad-bottom {
         display: block;
         order: 2;
     }
@@ -1173,4 +1166,9 @@ html {
     .toc-container {
         display: none !important;
     }
+}
+
+/* 포스팅 레이아웃의 post-content 스타일 */
+.post-layout .post-content {
+    margin: 0; /* 포스팅 레이아웃에서는 상위 컨테이너에서 마진 처리 */
 } 

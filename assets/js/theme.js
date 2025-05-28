@@ -220,8 +220,11 @@ class ThemeManager {
 document.addEventListener('DOMContentLoaded', () => {
     window.themeManager = new ThemeManager();
     
-    // TOC 초기화
-    if (document.querySelector('.post-content')) {
+    // TOC 초기화 - 더 확실한 조건 확인
+    const tocElement = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (tocElement && postContent) {
         window.tocManager = new TOCManager();
     }
 });
@@ -247,7 +250,10 @@ class TOCManager {
         const headings = this.contentContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
         
         if (headings.length === 0) {
-            this.tocContainer.closest('.toc-sidebar').style.display = 'none';
+            const tocSidebar = this.tocContainer.closest('.toc-sidebar');
+            if (tocSidebar) {
+                tocSidebar.style.display = 'none';
+            }
             return;
         }
 

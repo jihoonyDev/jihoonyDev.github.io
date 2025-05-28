@@ -1031,6 +1031,89 @@ html {
     display: none;
 }
 
+/* TOC 내부 스타일링 */
+.toc-container {
+    position: sticky;
+    top: 100px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    max-width: 100%;
+    overflow: visible;
+}
+
+.toc-nav {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+.toc-nav ul {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.toc-nav li {
+    margin-bottom: 0.05rem !important;
+    list-style: none !important;
+}
+
+.toc-nav a {
+    display: block !important;
+    color: var(--secondary-text) !important;
+    text-decoration: none !important;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+    line-height: 1.3;
+}
+
+.toc-nav a:hover {
+    color: var(--accent-color) !important;
+    background-color: rgba(var(--accent-color-rgb), 0.1) !important;
+    border-left-color: var(--accent-color) !important;
+}
+
+.toc-nav a.active {
+    color: var(--accent-color) !important;
+    background-color: rgba(var(--accent-color-rgb), 0.15) !important;
+    border-left-color: var(--accent-color) !important;
+    font-weight: 500;
+}
+
+/* TOC 중첩 레벨 (h2, h3, h4 등) */
+.toc-nav .toc-h1 {
+    padding-left: 0.5rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.toc-nav .toc-h2 {
+    padding-left: 0.75rem;
+    font-size: 0.75rem;
+}
+
+.toc-nav .toc-h3 {
+    padding-left: 1.25rem;
+    font-size: 0.7rem;
+}
+
+.toc-nav .toc-h4 {
+    padding-left: 1.75rem;
+    font-size: 0.65rem;
+}
+
+.toc-nav .toc-h5,
+.toc-nav .toc-h6 {
+    padding-left: 2.25rem;
+    font-size: 0.6rem;
+}
+
 .ad-bottom-mobile {
     width: 100%;
     order: 4;
@@ -1075,5 +1158,10 @@ html {
     .ad-bottom-mobile {
         display: block;
         order: 2;
+    }
+    
+    /* 모바일에서 TOC 완전히 숨김 */
+    .toc-container {
+        display: none !important;
     }
 } 

@@ -1,6 +1,6 @@
-title: My GitHub Pages Blog
-description: A simple blog hosted on GitHub Pages
-url: ""
+title: Multi-Tech
+description: 특정 기술에 국한되지 않고 다양한 주제를 다룹니다.
+url: "https://jihoonydev.github.io"
 baseurl: ""
 
 # Jekyll 설정
@@ -26,7 +26,7 @@ plugins:
   - jekyll-sitemap
 
 # GitHub Pages 호환성
-repository: "username/repository-name"
+repository: "jihoonyDev/jihoonyDev.github.io"
 
 # 빌드 설정
 safe: false

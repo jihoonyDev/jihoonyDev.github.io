@@ -5,4 +5,3 @@ category: Language/Kotlin
 category_slug: Language/Kotlin
 permalink: /categories/Language/Kotlin/
 --- 
-

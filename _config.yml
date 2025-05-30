@@ -24,6 +24,7 @@ show_drafts: false
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-paginate
 
 # GitHub Pages 호환성
 repository: "jihoonyDev/jihoonyDev.github.io"
